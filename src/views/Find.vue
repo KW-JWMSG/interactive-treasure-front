@@ -23,7 +23,7 @@
         >
           권한 허가
         </v-btn>
-        <v-card class="text-center py-12">
+        <v-card class="text-center py-12"  v-if="currentPerm">
           <img
             :src="require('@/assets/arrow.svg')"
             alt=""
