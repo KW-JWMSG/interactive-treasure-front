@@ -22,8 +22,7 @@
           <img
             :src="require('@/assets/arrow.svg')"
             alt=""
-            v-bind:style="{ transform: `rotate(${rotate}deg)` }"
-            :v-bind="rotate"
+            v-bind:style="styleObj"
           />
         </v-card>
       </v-col>
@@ -87,7 +86,7 @@ export default {
         };
         const targetDirection = calcDirection(currentGame, current);
         const realTargetDirection = webkitCompassHeading - targetDirection;
-        me.rotate = realTargetDirection;
+        me.styleObj.transform = `rotate(${realTargetDirection}deg)`;
       });
     },
     getPermission() {
@@ -126,6 +125,7 @@ export default {
       currentPerm: false,
       currentGame: null,
       rotate: 0,
+      styleObj: { transform: `rotate(0deg)` },
     };
   },
 };
