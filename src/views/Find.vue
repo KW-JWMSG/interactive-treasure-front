@@ -8,7 +8,13 @@
     <v-row>
       <v-col>
         <h1 class="text-center mb-5">보물 찾기</h1>
-        <v-btn class="py-12" block color="success" style="font-size:2rem" @click="getPermission()">
+        <v-btn
+          class="py-12"
+          block
+          color="success"
+          style="font-size: 2rem"
+          @click="getPermission()"
+        >
           권한 허가
         </v-btn>
         <v-card class="text-center py-12" v-if="currentPerm">
@@ -34,12 +40,27 @@
 </template>
 
 <script>
+function calcDirection(target, current) {
+  const target_chi = (target.latitude * Math.PI) / 180;
+  const current_chi = (current.latitude * Math.PI) / 180;
+  const target_lambda = (target.longitude * Math.PI) / 180;
+  const current_lambda = (current.longitude * Math.PI) / 180;
+  const y = Math.sin(target_lambda - current_lambda) * Math.cos(target_chi);
+  const x =
+    Math.cos(current_chi) * Math.sin(target_chi) -
+    Math.sin(current_chi) *
+      Math.cos(target_chi) *
+      Math.cos(target_lambda - current_lambda);
+  const rad_direction = Math.atan2(y, x);
+  const bearing = ((rad_direction * 180) / Math.PI + 360) % 360;
+  return bearing;
+}
 import { getTreasures } from "@/api/treasures";
 // import { currentGame, createGame } from "@/api/games";
 export default {
   name: "Find",
   mounted() {
-    this.startFind()
+    this.startFind();
   },
   computed: {
     rotateR() {
@@ -47,21 +68,6 @@ export default {
     },
   },
   methods: {
-    calcDirection(target, current) {
-      const target_chi = (target.latitude * Math.PI) / 180;
-      const current_chi = (current.latitude * Math.PI) / 180;
-      const target_lambda = (target.longitude * Math.PI) / 180;
-      const current_lambda = (current.longitude * Math.PI) / 180;
-      const y = Math.sin(target_lambda - current_lambda) * Math.cos(target_chi);
-      const x =
-        Math.cos(current_chi) * Math.sin(target_chi) -
-        Math.sin(current_chi) *
-          Math.cos(target_chi) *
-          Math.cos(target_lambda - current_lambda);
-      const rad_direction = Math.atan2(y, x);
-      const bearing = ((rad_direction * 180) / Math.PI + 360) % 360;
-      return bearing;
-    },
     async startFind() {
       const data = await getTreasures();
       if (data.data.success) {
@@ -79,7 +85,7 @@ export default {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
-        const targetDirection = this.calcDirection(this.currentGame, current);
+        const targetDirection = calcDirection(this.currentGame, current);
         const realTargetDirection = webkitCompassHeading - targetDirection;
         this.rotate = realTargetDirection;
       });
