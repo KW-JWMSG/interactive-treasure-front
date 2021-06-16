@@ -85,8 +85,10 @@ export default {
           longitude: position.coords.longitude,
         };
         const targetDirection = calcDirection(currentGame, current);
+
         const realTargetDirection =
           Number(webkitCompassHeading) - Number(targetDirection);
+        alert("JJJ"+targetDirection+"JJJ"+realTargetDirection+"JJJ"+webkitCompassHeading+"JJJ");
         me.styleObj.transform = `rotate(${realTargetDirection}deg)`;
       });
     },
