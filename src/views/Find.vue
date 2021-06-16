@@ -162,7 +162,7 @@ export default {
     },
     async dropGame() {
       alert(JSON.stringify(this.currentGame))
-      const data = await doFail(this.currentGame.treasure_id);
+      const data = await doFail(this.currentGame.game_id);
       if (data.data.success) {
         alert("게임을 포기하셨습니다.");
         this.$router.push("/");
