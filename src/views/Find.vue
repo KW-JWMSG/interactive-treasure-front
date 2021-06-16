@@ -87,7 +87,7 @@ export default {
         const targetDirection = calcDirection(me.currentGame, current);
 
         const realTargetDirection =
-          Number(webkitCompassHeading) - Number(targetDirection);
+          Number(targetDirection) - Number(webkitCompassHeading);
         me.styleObj.transform = `rotate(${realTargetDirection}deg)`;
       });
     },
