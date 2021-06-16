@@ -21,7 +21,7 @@
           <img
             :src="require('@/assets/arrow.svg')"
             alt=""
-            :style="{ transform: `rotate(${rotateR}deg)` }"
+            :style="{ transform: `rotate(${rotate}deg)` }"
           />
         </v-card>
       </v-col>
