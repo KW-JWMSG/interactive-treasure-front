@@ -7,7 +7,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <h1 class="text-center mb-5">보물 찾기</h1>
+        <h1 class="text-center mb-5">{{styleObj.transform }}</h1>
         <v-btn
           class="py-12"
           block
@@ -124,7 +124,6 @@ export default {
     return {
       currentPerm: false,
       currentGame: null,
-      rotate: 0,
       styleObj: { transform: `rotate(0deg)` },
     };
   },
