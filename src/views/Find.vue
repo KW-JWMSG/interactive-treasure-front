@@ -7,7 +7,8 @@
     </v-row>
     <v-row>
       <v-col>
-        <h1 class="text-center mb-5">{{ distance }}</h1>
+        <h1 class="text-center mb-5"  v-if="currentPerm">이곳으로 부터 {{ distance }} 미터</h1>
+        <h2 class="text-center mb-5"  v-if="!currentPerm">권한승인 후 진행해 주세요!</h2>
         <v-btn
           class="py-12"
           block
@@ -18,7 +19,7 @@
         >
           권한 허가
         </v-btn>
-        <v-card class="text-center py-12" v-if="currentPerm">
+        <v-card class="text-center py-12" >
           <img
             :src="require('@/assets/arrow.svg')"
             alt=""
@@ -34,7 +35,7 @@
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn color="warning" block> 포기하기 </v-btn>
+        <v-btn color="warning" block @click="dropGame"> 포기하기 </v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -75,6 +76,7 @@ function calcDistence(target, current) {
   return Math.round(d * 1000);
 }
 import { getTreasures } from "@/api/treasures";
+import { doFail, doSuccess } from "@/api/games";
 // import { currentGame, createGame } from "@/api/games";
 export default {
   name: "Find",
@@ -108,6 +110,9 @@ export default {
         const realTargetDirection =
           Number(targetDirection) - Number(webkitCompassHeading);
         me.styleObj.transform = `rotate(${realTargetDirection}deg)`;
+        if (me.distance != null && me.distance < 5) {
+          me.successGame();
+        }
       });
     },
     getPermission() {
@@ -141,6 +146,20 @@ export default {
         this.currentPerm = true;
       }
     },
+    async successGame() {
+      const data = await doSuccess(this.currentGame.treasure_id);
+      if (data.data.success) {
+        alert("게임에서 승리하셨습니다!");
+        this.$router.push("/");
+      }
+    },
+    async dropGame() {
+      const data = await doFail(this.currentGame.treasure_id);
+      if (data.data.success) {
+        alert("게임을 포기하셨습니다.");
+        this.$router.push("/");
+      }
+    },
   },
   components: {},
   data() {
@@ -148,7 +167,7 @@ export default {
       currentPerm: false,
       currentGame: null,
       styleObj: { transform: `rotate(0deg)` },
-      distance: 0,
+      distance: null,
     };
   },
 };
