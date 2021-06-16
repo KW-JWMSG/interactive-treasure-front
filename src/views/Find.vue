@@ -96,6 +96,7 @@ export default {
     async startFind() {
       const data = await getTreasures();
       if (data.data.success) {
+        console.log(data.data)
         this.currentGame = data.data.data[0];
       }
     },
