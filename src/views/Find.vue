@@ -88,13 +88,12 @@ export default {
 
         const realTargetDirection =
           Number(webkitCompassHeading) - Number(targetDirection);
-        alert("JJJ"+targetDirection+"JJJ"+realTargetDirection+"JJJ"+webkitCompassHeading+"JJJ");
         me.styleObj.transform = `rotate(${realTargetDirection}deg)`;
       });
     },
     getPermission() {
-      if (typeof DeviceOrientationEvent.requestPermission === "function") {
-        DeviceOrientationEvent.requestPermission()
+      if (typeof window.DeviceOrientationEvent.requestPermission === "function") {
+        window.DeviceOrientationEvent.requestPermission()
           .then((response) => {
             if (response === "granted") {
               window.addEventListener(
