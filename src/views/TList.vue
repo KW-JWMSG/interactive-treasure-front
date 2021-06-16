@@ -21,7 +21,7 @@
               <v-list-item v-for="item in items" :key="item.treasure_id">
                 <v-list-item-content>
                   <v-list-item-title
-                    >{{ item.user_id }}이 숨긴 보물 ({{
+                    >{{ item.createdAt }}에 {{ item.user_id }}이 숨긴 보물 ({{
                       Number(item.latitude).toFixed(5)
                     }}/{{
                       Number(item.longitude).toFixed(5)
