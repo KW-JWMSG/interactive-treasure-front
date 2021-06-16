@@ -98,6 +98,7 @@ export default {
       if (data.data.success) {
         console.log(data.data)
         this.currentGame = data.data.data;
+        this.currentTrse = data.data.data.TREASURES_LIST;
       }
     },
     orientation(event) {
@@ -111,9 +112,9 @@ export default {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
-        console.log(me.currentGame);
-        const targetDirection = calcDirection(me.currentGame, current);
-        me.distance = calcDistence(me.currentGame, current);
+        console.log(me.currentTrse);
+        const targetDirection = calcDirection(me.currentTrse, current);
+        me.distance = calcDistence(me.currentTrse, current);
 
         const realTargetDirection =
           Number(targetDirection) - Number(webkitCompassHeading);
@@ -155,14 +156,13 @@ export default {
       }
     },
     async successGame() {
-      const data = await doSuccess(this.currentGame.treasure_id);
+      const data = await doSuccess(this.currentTrse.treasure_id);
       if (data.data.success) {
         alert("게임에서 승리하셨습니다!");
         this.$router.push("/");
       }
     },
     async dropGame() {
-      alert(JSON.stringify(this.currentGame))
       const data = await doFail(this.currentGame.game_id);
       if (data.data.success) {
         alert("게임을 포기하셨습니다.");
@@ -175,6 +175,7 @@ export default {
     return {
       currentPerm: false,
       currentGame: null,
+      currentTrse: null,
       styleObj: { transform: `rotate(0deg)` },
       distance: null,
     };
