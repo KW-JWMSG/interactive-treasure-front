@@ -7,8 +7,12 @@
     </v-row>
     <v-row>
       <v-col>
-        <h1 class="text-center mb-5"  v-if="currentPerm">이곳으로 부터 {{ distance }} 미터</h1>
-        <h2 class="text-center mb-5"  v-if="!currentPerm">권한승인 후 진행해 주세요!</h2>
+        <h1 class="text-center mb-5" v-if="currentPerm">
+          이곳으로 부터 {{ distance }} 미터
+        </h1>
+        <h2 class="text-center mb-5" v-if="!currentPerm">
+          권한승인 후 진행해 주세요!
+        </h2>
         <v-btn
           class="py-12"
           block
@@ -19,7 +23,7 @@
         >
           권한 허가
         </v-btn>
-        <v-card class="text-center py-12" >
+        <v-card class="text-center py-12">
           <img
             :src="require('@/assets/arrow.svg')"
             alt=""
@@ -97,7 +101,10 @@ export default {
     },
     orientation(event) {
       const me = this;
-      const webkitCompassHeading = event.webkitCompassHeading;
+      let webkitCompassHeading = event.webkitCompassHeading;
+      if (typeof webkitCompassHeading === "undefined") {
+        webkitCompassHeading = 360 - event.alpha
+      }
       navigator.geolocation.getCurrentPosition(function (position) {
         const current = {
           latitude: position.coords.latitude,
