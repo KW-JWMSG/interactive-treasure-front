@@ -119,7 +119,7 @@ export default {
         const realTargetDirection =
           Number(targetDirection) - Number(webkitCompassHeading);
         me.styleObj.transform = `rotate(${realTargetDirection}deg)`;
-        if (me.distance != null && me.distance < 10) {
+        if (me.distance != null && me.distance < 25) {
           me.successGame();
         }
       });
