@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // axios.defaults.baseURL = "http://192.168.0.140:3000/"
-axios.defaults.baseURL = "http://localhost:3000/"
+axios.defaults.baseURL = "https://treasureapi.jwmsg.kr/"
 axios.defaults.withCredentials = true;
 export const request_get = async (url) => {
     return await axios.get(url).catch(err => {

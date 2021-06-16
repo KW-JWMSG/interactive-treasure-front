@@ -8,7 +8,7 @@
     <v-row>
       <v-col>
         <h1 class="text-center mb-5">보물 찾기</h1>
-        <v-btn class="py-12" block color="success" style="font-size:2rem" @click="startFind()">
+        <v-btn class="py-12" block color="success" style="font-size:2rem" @click="getPermission()">
           권한 허가
         </v-btn>
         <v-card class="text-center py-12" v-if="currentPerm">
@@ -38,7 +38,9 @@ import { getTreasures } from "@/api/treasures";
 // import { currentGame, createGame } from "@/api/games";
 export default {
   name: "Find",
-  mounted() {},
+  mounted() {
+    this.startFind()
+  },
   computed: {
     rotateR() {
       return this.rotate;
