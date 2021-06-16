@@ -73,18 +73,19 @@ export default {
       const data = await getTreasures();
       if (data.data.success) {
         this.currentGame = data.data.data;
+        console.log(JSON.stringify(data))
       }
     },
     orientation(event) {
       const me = this;
-      const currentGame = this.currentGame;
       const webkitCompassHeading = event.webkitCompassHeading;
       navigator.geolocation.getCurrentPosition(function (position) {
         const current = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
-        const targetDirection = calcDirection(currentGame, current);
+        console.log(me.currentGame)
+        const targetDirection = calcDirection(me.currentGame, current);
 
         const realTargetDirection =
           Number(webkitCompassHeading) - Number(targetDirection);
