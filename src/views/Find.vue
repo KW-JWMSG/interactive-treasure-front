@@ -22,7 +22,7 @@
           <img
             :src="require('@/assets/arrow.svg')"
             alt=""
-            :style="{ transform: `rotate(${rotate}deg)` }"
+            v-bind:style="{ transform: `rotate(${rotate}deg)` }"
             :v-bind="rotate"
           />
         </v-card>
