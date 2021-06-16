@@ -75,19 +75,17 @@ export default {
       }
     },
     orientation(event) {
-      // const beta = event.beta;
-      // const gamma = event.gamma;
-      // const alpha = event.alpha;
-      // const absolute = event.absolute;
+      const me = this;
+      const currentGame = this.currentGame
       const webkitCompassHeading = event.webkitCompassHeading;
       navigator.geolocation.getCurrentPosition(function (position) {
         const current = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
-        const targetDirection = calcDirection(this.currentGame, current);
+        const targetDirection = calcDirection(currentGame, current);
         const realTargetDirection = webkitCompassHeading - targetDirection;
-        this.rotate = realTargetDirection;
+        me.rotate = realTargetDirection;
       });
     },
     getPermission() {
