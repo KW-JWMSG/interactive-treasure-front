@@ -72,8 +72,7 @@ export default {
     async startFind() {
       const data = await getTreasures();
       if (data.data.success) {
-        this.currentGame = data.data.data;
-        console.log(JSON.stringify(data))
+        this.currentGame = data.data.data[0];
       }
     },
     orientation(event) {
