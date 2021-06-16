@@ -97,7 +97,7 @@ export default {
       const data = await currentGame();
       if (data.data.success) {
         console.log(data.data)
-        this.currentGame = data.data;
+        this.currentGame = data.data.data;
       }
     },
     orientation(event) {
