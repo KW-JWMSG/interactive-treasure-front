@@ -13,6 +13,7 @@
           block
           color="success"
           style="font-size: 2rem"
+          v-if="!currentPerm"
           @click="getPermission()"
         >
           권한 허가
@@ -22,6 +23,7 @@
             :src="require('@/assets/arrow.svg')"
             alt=""
             :style="{ transform: `rotate(${rotate}deg)` }"
+            :v-bind="rotate"
           />
         </v-card>
       </v-col>
