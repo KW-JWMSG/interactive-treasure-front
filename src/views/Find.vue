@@ -79,8 +79,8 @@ function calcDistence(target, current) {
   var d = r * c; // Distance in km
   return Math.round(d * 1000);
 }
-import { getTreasures } from "@/api/treasures";
-import { doFail, doSuccess } from "@/api/games";
+// import { getTreasures } from "@/api/treasures";
+import { doFail, doSuccess,currentGame } from "@/api/games";
 // import { currentGame, createGame } from "@/api/games";
 export default {
   name: "Find",
@@ -94,7 +94,7 @@ export default {
   },
   methods: {
     async startFind() {
-      const data = await getTreasures();
+      const data = await currentGame();
       if (data.data.success) {
         console.log(data.data)
         this.currentGame = data.data.data[0];
