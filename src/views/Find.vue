@@ -7,7 +7,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <h1 class="text-center mb-5">{{styleObj.transform }}</h1>
+        <h1 class="text-center mb-5">{{ styleObj.transform }}</h1>
         <v-btn
           class="py-12"
           block
@@ -85,7 +85,8 @@ export default {
           longitude: position.coords.longitude,
         };
         const targetDirection = calcDirection(currentGame, current);
-        const realTargetDirection = webkitCompassHeading - targetDirection;
+        const realTargetDirection =
+          Number(webkitCompassHeading) - Number(targetDirection);
         me.styleObj.transform = `rotate(${realTargetDirection}deg)`;
       });
     },
