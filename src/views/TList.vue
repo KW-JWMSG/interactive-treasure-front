@@ -81,7 +81,8 @@ export default {
       }
       const data = await createGame(this.items[this.selectedItem].treasure_id);
       if (!data.data.success) {
-        alert(data.data.message);
+        if (data.data.message) alert(data.data.message);
+        if (data.data.error) alert(data.data.error);
         return;
       }
       this.$router.push("/find");
