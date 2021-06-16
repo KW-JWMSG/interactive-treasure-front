@@ -156,10 +156,11 @@ export default {
       }
     },
     async successGame() {
-      const data = await doSuccess(this.currentTrse.treasure_id);
+      const data = await doSuccess(this.currentTrse.game_id);
       if (data.data.success) {
         alert("게임에서 승리하셨습니다!");
         this.$router.push("/");
+        return
       }
     },
     async dropGame() {
