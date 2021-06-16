@@ -76,7 +76,7 @@ export default {
     },
     orientation(event) {
       const me = this;
-      const currentGame = this.currentGame
+      const currentGame = this.currentGame;
       const webkitCompassHeading = event.webkitCompassHeading;
       navigator.geolocation.getCurrentPosition(function (position) {
         const current = {
@@ -93,7 +93,6 @@ export default {
         DeviceOrientationEvent.requestPermission()
           .then((response) => {
             if (response === "granted") {
-              document.getElementById("log").innerHTML += response + "<br>";
               window.addEventListener(
                 "deviceorientation",
                 this.orientation,
@@ -101,14 +100,13 @@ export default {
               );
               this.currentPerm = true;
             } else if (response === "prompt") {
-              document.getElementById("log").innerHTML +=
-                "Need prompt!" + "<br>";
+              alert(response + "모드가 필요합니다.");
             } else {
-              document.getElementById("log").innerHTML += response + "<br>";
+              alert(response + "!! 권한이 필요합니다.");
             }
           })
           .catch((err) => {
-            document.getElementById("log").innerHTML += err + "<br>";
+            alert("에러!" + err);
           });
       } else {
         window.addEventListener(
