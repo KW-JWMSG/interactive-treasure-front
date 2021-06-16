@@ -7,7 +7,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <h1 class="text-center mb-5">{{ styleObj.transform }}</h1>
+        <h1 class="text-center mb-5">{{ distance }}</h1>
         <v-btn
           class="py-12"
           block
@@ -56,6 +56,24 @@ function calcDirection(target, current) {
   const bearing = ((rad_direction * 180) / Math.PI + 360) % 360;
   return bearing;
 }
+
+function calcDistence(target, current) {
+  function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+  }
+  var r = 6371; //지구의 반지름(km)
+  var dLat = deg2rad(target.latitude - current.latitude);
+  var dLon = deg2rad(target.longitude - current.longitude);
+  var a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(current.latitude)) *
+      Math.cos(deg2rad(target.latitude)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = r * c; // Distance in km
+  return Math.round(d * 1000);
+}
 import { getTreasures } from "@/api/treasures";
 // import { currentGame, createGame } from "@/api/games";
 export default {
@@ -83,8 +101,9 @@ export default {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
-        console.log(me.currentGame)
+        console.log(me.currentGame);
         const targetDirection = calcDirection(me.currentGame, current);
+        me.distance = calcDistence(me.currentGame, current);
 
         const realTargetDirection =
           Number(targetDirection) - Number(webkitCompassHeading);
@@ -92,7 +111,9 @@ export default {
       });
     },
     getPermission() {
-      if (typeof window.DeviceOrientationEvent.requestPermission === "function") {
+      if (
+        typeof window.DeviceOrientationEvent.requestPermission === "function"
+      ) {
         window.DeviceOrientationEvent.requestPermission()
           .then((response) => {
             if (response === "granted") {
@@ -127,6 +148,7 @@ export default {
       currentPerm: false,
       currentGame: null,
       styleObj: { transform: `rotate(0deg)` },
+      distance: 0,
     };
   },
 };
